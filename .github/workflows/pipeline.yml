@@ -18,6 +18,7 @@ jobs:
     #Sobre donde se va a ejecutar el job
     runs-on: ubuntu-20.04
     # Creando steps
+    
     steps:
       - name: cancelar penultimo build
         uses: styfle/cancel-workflow-action@0.10.0
