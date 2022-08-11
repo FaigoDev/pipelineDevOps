@@ -16,7 +16,7 @@ jobs:
   #Nombre del job, taller
   taller:
     #Sobre donde se va a ejecutar el job
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-20.04
     # Creando steps
     steps:
       - name: Fecha de Hoy
