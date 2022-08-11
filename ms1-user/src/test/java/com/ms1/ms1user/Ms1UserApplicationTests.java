@@ -10,6 +10,7 @@ class Ms1UserApplicationTests {
     void contextLoads() {
         System.out.println("Este es un testeo chiquito");
         System.out.println("Mas test");
+        System.out.println("Ultimo testing");
     }
 
 }

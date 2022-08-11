@@ -13,18 +13,18 @@ on:
 
 #COnfiguraciones de (Jobs:)
 jobs:
-  #Nombre del job, taller
-  taller:
+  builds-reduncy:
     #Sobre donde se va a ejecutar el job
     runs-on: ubuntu-20.04
-    # Creando steps
-  
     steps:
       - name: cancelar penultimo build
         uses: styfle/cancel-workflow-action@0.10.0
         with:
           access_token: ${{github.token}}
 
+  execution-test:
+    runs-on: ubuntu-20.04
+    steps:
       - name: Descargar ultimo cambio de rama
         uses: actions/checkout@v3.0.2
         with:
@@ -46,7 +46,38 @@ jobs:
       #Vamos a ejecutar el test de la aplicacion
       - name: Ejecucion de Test
         run: mvn -B test --f ms1-user/pom.xml
-      # Ahora el artefacto
+
+  generation-builds: 
+    needs: [execution-test]
+    runs-on: ubuntu-20.04
+    if: ${{github.event_name == 'push'}}
+    steps:
+      - name: Descargar ultimo cambio de rama
+        uses: actions/checkout@v3.0.2
+        with:
+          fetch-depth: 0
+      #- name: Visualizar los cambios
+      #  run: ls -l
+      - name: Instalacion y Configuracion de jdk11
+      # sacando java desde el marketplace de github/actions
+        uses: actions/setup-java@v3
+          #Parametros para la instalacion
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '11'
+          server-id: github
+          #Dando conexto de en donde va a trabajar Java
+          settings-path: ${{github.workspaces}}
+          # Estableciendo parametro cache
+          cache: "maven"
+      # Generando Artefacto
       - name: Generar artefacto
-        if: ${{github.event_name == 'push'}}
         run: mvn -B package -DskipTests --f ms1-user/pom.xml
+
+  deploy-heroku:
+      needs: [generation-builds]
+      runs-on: ubuntu-20.04
+      if: ${{github.event_name == 'push'}}
+      steps:
+        - name: deploy
+          run: date
