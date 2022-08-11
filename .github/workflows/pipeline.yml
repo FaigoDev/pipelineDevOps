@@ -80,7 +80,7 @@ jobs:
       if: ${{github.event_name == 'push'}}
       steps: 
       - name: deploy Heroku-App
-      - uses: akhileshns/heroku-deploy@v3.12.11 # This is the action
+        uses: akhileshns/heroku-deploy@v3.12.11 # This is the action
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "app-usuarios-faig" #Must be unique in Heroku
