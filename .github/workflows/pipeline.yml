@@ -78,6 +78,11 @@ jobs:
       needs: [generation-builds]
       runs-on: ubuntu-20.04
       if: ${{github.event_name == 'push'}}
-      steps:
-        - name: deploy
-          run: date
+      steps: 
+      - name: deploy Heroku-App
+      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "app-usuarios-faig" #Must be unique in Heroku
+          heroku_email: "flavio.illanes@vallegrande.edu.pe"
+#
