@@ -8,6 +8,7 @@ class Ms1UserApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("Este es un testeo chiquito");
     }
 
 }

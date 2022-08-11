@@ -23,7 +23,21 @@ jobs:
         uses: actions/checkout@v3.0.2
         with:
           fetch-depth: 0
-      - name: Visualizar los cambios
-        run: ls -l
-
-
+      #- name: Visualizar los cambios
+      #  run: ls -l
+      - name: Instalacion y Configuracion de jdk11
+      # sacando java desde el marketplace de github/actions
+        uses: actions/setup-java@v3
+          #Parametros para la instalacion
+        with:
+          distribution: 'temurin' # See 'Supported distributions' for available options
+          java-version: '11'
+          server-id: github
+          #Dando conexto de en donde va a trabajar Java
+          settings-path: ${{github.workspaces}}
+      #Vamos a ejecutar el test de la aplicacion
+      - name: Ejecucion de Test
+        run: mvn -B test --f pom.xml
+      # Ahora el artefacto
+      - name: Generar artefacto
+        run: mvn -B package -DskipTests --f pom.xml
