@@ -48,4 +48,5 @@ jobs:
         run: mvn -B test --f ms1-user/pom.xml
       # Ahora el artefacto
       - name: Generar artefacto
+        if: ${{github.event_name == 'push'}}
         run: mvn -B package -DskipTests --f ms1-user/pom.xml
