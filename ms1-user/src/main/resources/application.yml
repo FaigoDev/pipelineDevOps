@@ -1,0 +1,51 @@
+server:
+  port: 9094
+spring:
+  application:
+    name: ms-usuario
+  profiles:
+      active: [dev,observability ]
+  datasource:
+    url: jdbc:postgresql://ec2-54-152-28-9.compute-1.amazonaws.com:5432/d6625a81pvpck5
+    username: scwqvdjajwauai
+    password: f46f2bc6f7817d7bb31395fbbd72ecfead43c41b4957e4cb198857641783035a
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+#management:
+  #endpoints:
+   # web:
+    #  exposure:
+    #    include: "*"
+#//localhost:5432/dbHackaton
+#//dbpostgresql:5432/dbHackaton
+
+management:
+  metrics:
+    tags:
+      application: ${spring.application.name}
+      service: ${spring.application.name}
+      instance: ${spring.application.name}
+    enable:
+      jvm: true
+      process: true
+      tomcat: true
+      system: true
+      logback: true
+    distribution:
+      slo:
+        http.server.requests: 50ms
+      percentiles-histogram:
+        http.server.requests: true
+      percentiles:
+        http.server.requests: 0.99
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    metrics:
+      enabled: true

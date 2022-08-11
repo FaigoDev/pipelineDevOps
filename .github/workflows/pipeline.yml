@@ -1,0 +1,26 @@
+name: taller pipeline DevOps CI/CD
+#Configurar Disparador (on:)
+on:
+  #tipo push cuando hagamos un push directo a una rama
+  push:
+    #POnemos las ramas ejemplos [rama1,rama2,rama3,etc..]
+    branches: [main]
+  
+  #tipo 2 pull request, establezco que mi pipeline solo se ejecutre cuando haya un pull en main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+#COnfiguraciones de (Jobs:)
+jobs:
+  #Nombre del job, taller
+  taller:
+    #Sobre donde se va a ejecutar el job
+    runs-on: ubuntu-18.04
+    # Creando steps
+    steps:
+      - name: Fecha de Hoy
+        run: date
+      - name: Directorios
+        run: ls -l
+
