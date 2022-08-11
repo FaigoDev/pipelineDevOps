@@ -37,7 +37,7 @@ jobs:
           settings-path: ${{github.workspaces}}
       #Vamos a ejecutar el test de la aplicacion
       - name: Ejecucion de Test
-        run: mvn -B test --f pom.xml
+        run: mvn -B test --f ms1-user/pom.xml
       # Ahora el artefacto
       - name: Generar artefacto
-        run: mvn -B package -DskipTests --f pom.xml
+        run: mvn -B package -DskipTests --f ms1-user/pom.xml
