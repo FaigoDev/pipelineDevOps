@@ -19,8 +19,11 @@ jobs:
     runs-on: ubuntu-20.04
     # Creando steps
     steps:
-      - name: Fecha de Hoy
-        run: date
-      - name: Directorios
+      - name: Descargar ultimo cambio de rama
+        uses: actions/checkout@v3.0.2
+        with:
+          fetch-depth: 0
+      - name: Visualizar los cambios
         run: ls -l
+
 
