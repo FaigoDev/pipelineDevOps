@@ -31,8 +31,8 @@ jobs:
         # Disabling shallow clone is recommended for improving relevancy of reporting
         fetch-depth: 0
     - name: Scanneo del proyecto con SonarCloud 
-      uses: sonarsource/sonarcloud-github-action@master
-      #run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=faigodev
+      #uses: sonarsource/sonarcloud-github-action@master
+      run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=faigodev -Dsonar.organization=Faig -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       env:
         GITHUB_TOKEN: ${{github.token}}
         SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
