@@ -23,7 +23,31 @@ jobs:
         with:
           access_token: ${{github.token}}
 
+  sonar-test:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Descargar ultimo cambio de rama
+        uses: actions/checkout@v3.0.2
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v3
+      - name: Instalando jdk 11
+        with:
+          java-version: '11'
+
+      - name: Dando permiso chmod +x mvnw
+        run: chmod +x mvnw
+
+      - name: Scanneo del proyecto con SonarCloud 
+      #uses: sonarsource/sonarcloud-github-action@master
+        run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=faigodev -Dsonar.organization=Faig -Dsonar.host.url=https://sonarcloud.io
+        env:
+          GITHUB_TOKEN: ${{github.token}}
+          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+
+
   execution-test:
+    needs: [sonar-test]
     runs-on: ubuntu-20.04
     steps:
       - name: Descargar ultimo cambio de rama
