@@ -41,10 +41,10 @@ jobs:
 
       - name: Dando permiso chmod +x mvnw
         run: chmod +x mvnw
-        
+
       - name: Scanneo del proyecto con SonarCloud 
       #uses: sonarsource/sonarcloud-github-action@master
-        run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=faigodev -Dsonar.organization=Faig -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{secrets.SONAR_TOKEN}}
+        run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=faigodev -Dsonar.organization=Faig -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
         env:
           GITHUB_TOKEN: ${{github.token}}
           SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
