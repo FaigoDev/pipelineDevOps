@@ -72,7 +72,7 @@ jobs:
           cache: "maven"
       # Generando Artefacto
       - name: Generar artefacto
-        run: mvn -B package -DskipTests --f ms1-user/pom.xml
+        run: mvn -B package -DskipTests --f pom.xml
 
   deploy-heroku:
       needs: [generation-builds]
