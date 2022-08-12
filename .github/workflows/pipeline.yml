@@ -54,7 +54,10 @@ jobs:
       #     SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
 
       - name: SonarCloud Scan
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=https://sonarcloud.io
+        #run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=https://sonarcloud.io
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          projectBaseDir: ./src
         env:
           GITHUB_TOKEN: ${{ github.token }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
