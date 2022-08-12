@@ -32,28 +32,32 @@ jobs:
           fetch-depth: 0
 
 
-      - name: Instalando jdk 11
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '11'
-          server-id: github
-          #Dando conexto de en donde va a trabajar Java
-          settings-path: ${{github.workspaces}}
-          # Estableciendo parametro cache
-          cache: "maven"
+      # - name: Instalando jdk 11
+      #   uses: actions/setup-java@v3
+      #   with:
+      #     distribution: 'temurin' # See 'Supported distributions' for available options
+      #     java-version: '11'
+      #     server-id: github
+      #     #Dando conexto de en donde va a trabajar Java
+      #     settings-path: ${{github.workspaces}}
+      #     # Estableciendo parametro cache
+      #     cache: "maven"
 
       - name: Dando permiso chmod +x mvnw
         run: chmod +x mvnw
 
-      - name: Scanneo del proyecto con SonarCloud 
-      #uses: sonarsource/sonarcloud-github-action@master
-        run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=faigodev -Dsonar.organization=Faig -Dsonar.host.url=https://sonarcloud.io
+      # - name: Scanneo del proyecto con SonarCloud 
+      # #uses: sonarsource/sonarcloud-github-action@master
+      #   run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=faigodev -Dsonar.organization=Faig -Dsonar.host.url=https://sonarcloud.io
+      #   env:
+      #     GITHUB_TOKEN: ${{github.token}}
+      #     SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{github.token}}
-          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
-
-
+          GITHUB_TOKEN: ${{ github.token }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   execution-test:
     needs: [sonar-test]
     runs-on: ubuntu-20.04
