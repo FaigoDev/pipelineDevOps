@@ -1,5 +1,6 @@
 name: taller pipeline DevOps CI/CD
 #Configurar Disparador (on:)
+
 on:
   #tipo push cuando hagamos un push directo a una rama
   push:
@@ -45,7 +46,7 @@ jobs:
           cache: "maven"
       #Vamos a ejecutar el test de la aplicacion
       - name: Ejecucion de Test
-        run: mvn -B test --f ms1-user/pom.xml
+        run: mvn -B test --f pom.xml
 
   generation-builds: 
     needs: [execution-test]
