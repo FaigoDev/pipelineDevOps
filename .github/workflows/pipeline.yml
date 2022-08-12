@@ -26,16 +26,25 @@ jobs:
   sonar-test:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v2
-      with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-        fetch-depth: 0
-    - name: Scanneo del proyecto con SonarCloud 
+      - name: Descargar ultimo cambio de rama
+        uses: actions/checkout@v3.0.2
+        with:
+          fetch-depth: 0
+      - name: Instalacion y Configuracion de jdk11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+          server-id: github
+          settings-path: ${{github.workspaces}}
+          cache: "maven"
+
+      - name: Scanneo del proyecto con SonarCloud 
       #uses: sonarsource/sonarcloud-github-action@master
-      run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=faigodev -Dsonar.organization=Faig -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
-      env:
-        GITHUB_TOKEN: ${{github.token}}
-        SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+        run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=faigodev -Dsonar.organization=Faig -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{secrets.SONAR_TOKEN}}
+        env:
+          GITHUB_TOKEN: ${{github.token}}
+          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
 
 
   execution-test:
