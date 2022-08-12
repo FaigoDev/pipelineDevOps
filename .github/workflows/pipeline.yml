@@ -49,13 +49,10 @@ jobs:
       # - name: Scanneo del proyecto con SonarCloud 
       # #uses: sonarsource/sonarcloud-github-action@master
       #   run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=faigodev -Dsonar.organization=Faig -Dsonar.host.url=https://sonarcloud.io
-      #   env:
-      #     GITHUB_TOKEN: ${{github.token}}
-      #     SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
 
       - name: SonarCloud Scan
         #run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.host.url=https://sonarcloud.io
-        run: mvn verify mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar Dsonar.host.url=https://sonarcloud.io Dsonar.organization=Faig  Dsonar.projectKey=faigodev
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
         env:
           GITHUB_TOKEN: ${{ github.token }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
