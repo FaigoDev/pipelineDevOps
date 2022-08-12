@@ -23,7 +23,22 @@ jobs:
         with:
           access_token: ${{github.token}}
 
+  sonar-test:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        # Disabling shallow clone is recommended for improving relevancy of reporting
+        fetch-depth: 0
+    - name: Scanneo del proyecto con SonarCloud 
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{github.token}}
+        SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+
+
   execution-test:
+    needs: [sonar-test]
     runs-on: ubuntu-20.04
     steps:
       - name: Descargar ultimo cambio de rama
