@@ -46,7 +46,7 @@ jobs:
           cache: "maven"
       #Vamos a ejecutar el test de la aplicacion
       - name: Ejecucion de Test
-        run: mvn -B test --f ms1-user/pom.xml
+        run: mvn -B test --f pom.xml
 
   generation-builds: 
     needs: [execution-test]
