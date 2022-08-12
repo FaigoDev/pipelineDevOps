@@ -39,6 +39,9 @@ jobs:
           settings-path: ${{github.workspaces}}
           cache: "maven"
 
+      - name: Dando permiso chmod +x mvnw
+        run: chmod +x mvnw
+        
       - name: Scanneo del proyecto con SonarCloud 
       #uses: sonarsource/sonarcloud-github-action@master
         run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=faigodev -Dsonar.organization=Faig -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${{secrets.SONAR_TOKEN}}
